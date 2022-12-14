@@ -12,8 +12,11 @@
     "devDependencies": {
         "axios": "^0.21",
         "laravel-mix": "^6.0.6",
-        "lodash": "^4.17.19",
+        "lodash": "^4.17.5",
         "postcss": "^8.1.14",
+        "resolve-url-loader": "5.0.0",
+        "sass": "^1.15.2",
+        "sass-loader": "^7.1.0",
         "vue-loader": "15.9.8"
     },
     "dependencies": {
