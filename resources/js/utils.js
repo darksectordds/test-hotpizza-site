@@ -5,6 +5,15 @@ const Utils = (function () {
     }
 // public functions
     /**
+     * Проверка, является ли переданное значение объектом.
+     *
+     * @param unk
+     * @return {boolean}
+     */
+    Utils.prototype.isObject = function (unk) {
+        return typeof unk === 'object' && !Array.isArray(unk) && unk !== null;
+    };
+    /**
      * Замена текущего состояния параметров GET-запроса
      * на новую строку с параметрами.
      *
