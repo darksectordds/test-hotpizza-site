@@ -31,7 +31,7 @@
 
         <!-- list empty message -->
         <template-list-empty-component
-                v-else-if="!hasList && !isEndAbove && !isEndBelow"></template-list-empty-component>
+                v-else-if="!hasList && !isEndAbove && !isEndBelow && !isLoadingAbove && !isLoadingBelow"></template-list-empty-component>
 
         <template v-if="!isEndBelow">
             <template-loading-spinner-component
