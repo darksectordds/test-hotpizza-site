@@ -1,5 +1,7 @@
 <template>
-    <button v-bind="_config">{{ cValue }}</button>
+    <button v-bind="_config">
+        <slot>{{ cValue }}</slot>
+    </button>
 </template>
 
 <script>
@@ -8,7 +10,7 @@
         props: {
             config: { type: Object, default: () => ({}) },
             configDefault: { type: Object, default: () => ({
-                value: 'нет значения',
+                value: null,
             }) },
         },
         computed: {
