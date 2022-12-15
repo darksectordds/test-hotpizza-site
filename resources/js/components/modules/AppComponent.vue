@@ -1,12 +1,15 @@
 <template>
     <component is="main">
         <!-- navbar -->
-        <navbar-component :navigations="navigations"
-                          @navigate="onNavigate"></navbar-component>
+        <navbar-component ref="navbar"
+                          :navigations="navigations"
+                          @navigate="onNavigate"
+                          @mounted="onNavbarMounted"></navbar-component>
 
         <!-- single-page view -->
         <view-component :idx="currentIdx"
-                        :navigations="navigations"></view-component>
+                        :navigations="navigations"
+                        :style="[{'margin-top': `${marginTopOffset}px`}]"></view-component>
     </component>
 </template>
 
@@ -33,11 +36,16 @@
                     { key:1, icon: 'fa-solid fa-cart-shopping', title: null, route: 'cart', params:{}, query: {}, children: [] },
                 ],
                 currentIdx: 0, // default="Главная"
+                marginTopOffset: 0,
             }
         },
         methods: {
             onNavigate(idx) {
                 this.currentIdx = idx;
+            },
+            onNavbarMounted() {
+                // создаем отступ view от navbar(position: fixed)
+                this.marginTopOffset = this.$refs.navbar.$el.clientHeight;
             }
         }
     }

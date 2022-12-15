@@ -36,6 +36,12 @@
             interfaceRouteTo(idx) {
                 this.$emit('navigate', idx);
             },
+            interfaceMounted() {
+                this.$emit('mounted');
+            }
         },
+        mounted() {
+            this.interfaceMounted();
+        }
     }
 </script>
