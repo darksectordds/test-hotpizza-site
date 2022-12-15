@@ -10,6 +10,10 @@ $name-pagination__form:                               $name-pagination + '__form
 $name-pagination__form__btn:                          $name-pagination__form + '__btn';
 
 
+$name-navbar:                                         $class-prefix + 'navbar';
+$name-navbar__navitem:                                $name-navbar + '__nav-item';
+
+
 $window-sm:                                           576px;
 $window-md:                                           768px;
 $window-lg:                                           992px;
