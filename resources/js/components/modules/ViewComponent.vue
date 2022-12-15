@@ -1,5 +1,9 @@
 <template>
-    <router-view :key="$route.fullPath"></router-view>
+    <div class="container">
+        <div class="row no-gutters" style="max-width: 980px; margin: auto;">
+            <router-view :key="$route.fullPath"></router-view>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -15,7 +19,7 @@
             // - params(параметры передающие в vue-компонент),
             // - query(url-параметры),
             // - children(список детей, как было показано чуть выше с route)
-            navigation: {type: Array, default: []},
+            navigations: {type: Array, default: []},
             idx: {type: Number, default: 0},
         },
         computed: {
@@ -42,7 +46,7 @@
                 // сокращаем количество routes в зависимости от
                 // нашего кастомного routers
                 return _.filter(this.$router.options.routes, (route) => {
-                    return _.some(this.navigation, (o) => {
+                    return _.some(this.navigations, (o) => {
                         return o.route === route.name || _.some(o.children, (child) => child === route.name);
                     });
                 });
@@ -66,6 +70,11 @@
                 return !_.isEmpty(this.route);
             },
         },
+        watch: {
+            idx(idx) {
+                this.showRouteIdx(idx);
+            },
+        },
         methods: {
 
             showRoute(route) {
@@ -73,13 +82,13 @@
             },
             showRouteIdx(idx) {
                 this.$router.push({
-                    name: this.navigation[idx].name,
-                    params: this.navigation[idx].params,
-                    query: this.navigation[idx].query
+                    name: this.navigations[idx].route,
+                    params: this.navigations[idx].params,
+                    query: this.navigations[idx].query
                 });
             },
             showCurrentRoute() {
-                this.showRouteIdx(this.routerIdx);
+                this.showRouteIdx(this.idx);
             },
 
             routeNameByUrl(url) {
@@ -142,7 +151,7 @@
                 }
             },
         },
-        created() {
+        mounted() {
             if (this.$route.name === null) {
 
                 // если определили необходимый route по URL-параметрам

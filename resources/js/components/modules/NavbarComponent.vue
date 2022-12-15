@@ -1,3 +1,41 @@
 <template>
-    <div></div>
+    <template-navbar-component>
+        <template-navbar-item-component v-for="(item,idx) in navigations"
+                                        :key="item.key"
+                                        @click.prevent="interfaceRouteTo(idx)">
+            <!-- icon -->
+            <template v-if="!!item.icon">
+                <font-awesome-icon :icon="item.icon" />
+            </template>
+
+            <!-- title -->
+            <template v-else-if="!!item.title">{{ item.title }}</template>
+
+        </template-navbar-item-component>
+    </template-navbar-component>
 </template>
+
+<script>
+    import TemplateNavbarComponent from "../templates/navbar/TemplateNavbarComponent";
+    import TemplateNavbarItemComponent from "../templates/navbar/TemplateNavbarItemComponent";
+
+    export default {
+        name: 'NavbarComponent',
+        components: {TemplateNavbarComponent, TemplateNavbarItemComponent},
+        props: {
+            navigations: { type: Array, default: () => ([]) },
+        },
+        methods: {
+
+            /*
+             |---------------------------------------------------------------------------------------------
+             | Interfaces
+             |--------------------------------------------------------------------------------------
+             */
+
+            interfaceRouteTo(idx) {
+                this.$emit('navigate', idx);
+            },
+        },
+    }
+</script>
