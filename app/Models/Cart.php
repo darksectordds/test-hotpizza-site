@@ -13,7 +13,8 @@ class Cart extends Model
 
     protected $fillable = [
         'session_id',
-        'customer_id'
+        'customer_id',
+        'is_payment',
     ];
 
     /*

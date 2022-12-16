@@ -14,5 +14,9 @@ class CartProduct extends Model
     protected $fillable = [
         'cart_id',
         'product_id',
+        'count',
+        'created_at',
     ];
+
+    public $timestamps = false;
 }

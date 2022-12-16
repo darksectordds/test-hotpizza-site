@@ -18,4 +18,9 @@ use Illuminate\Support\Facades\Route;
 //    return $request->user();
 //});
 
-Route::get('/product', 'App\Http\Controllers\Api\ProductController@index');
+Route::group(['prefix' => 'product', 'as' => 'product.'], function(){
+    Route::get('/', 'App\Http\Controllers\Api\ProductController@index');
+    Route::group(['prefix' => '{product_id}', 'as' => 'product_id.'], function(){
+        Route::post('/', 'App\Http\Controllers\Api\CartProductController@create')->name('create');
+    });
+});
