@@ -35,12 +35,12 @@ ProductObject.hasRelationship = function(relationship) {
 ProductObject.relationshipPhoto = function(product) {
     return product.photo;
 };
-ProductObject.images = function(product) {
+ProductObject.photos = function(product) {
     const relationship = ProductObject.relationshipPhoto(product);
     return (ProductObject.hasRelationship(relationship)) ? relationship : [];
 };
-ProductObject.firstImage = function(product) {
-    const images = ProductObject.images(product);
+ProductObject.firstPhoto = function(product) {
+    const images = ProductObject.photos(product);
     return images[0];
 };
 
