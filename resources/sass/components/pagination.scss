@@ -1,0 +1,43 @@
+@import "../config";
+
+.#{$name-pagination} {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  .#{$name-pagination__page} {
+    align-self: center;
+    padding: 0 1.2rem;
+    white-space: nowrap;
+    //@include theme(color, subtext);
+  }
+
+  .#{$name-pagination__form} {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    //@include theme(color, text);
+
+    .#{$name-pagination__form__btn} {
+      //@include theme(color, text);
+      &:disabled {
+        //@include theme(color, subtext);
+      }
+    }
+
+    > input.#{$name-form-control} {
+      width: 50px;
+      text-align: right;
+      margin-bottom: 0;
+    }
+    span {
+      white-space: nowrap;
+      margin: 0.5em 0;
+    }
+  }
+
+  @media screen and (max-width: $window-sm) {
+    flex-direction: column;
+    justify-content: center;
+  }
+}
