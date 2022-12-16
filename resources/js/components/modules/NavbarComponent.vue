@@ -2,7 +2,8 @@
     <template-navbar-component>
         <template-navbar-item-component v-for="(item,idx) in navigations"
                                         :key="item.key"
-                                        @click.prevent="interfaceRouteTo(idx)">
+                                        :class="[item.class]"
+                                        @click.native="interfaceRouteTo(idx)">
             <!-- icon -->
             <template v-if="!!item.icon">
                 <font-awesome-icon :icon="item.icon" />
@@ -10,6 +11,9 @@
 
             <!-- title -->
             <template v-else-if="!!item.title">{{ item.title }}</template>
+
+            <!-- внешнее расширение -->
+            <slot :name="navbarSlotNameRuleFunc(idx)"></slot>
 
         </template-navbar-item-component>
     </template-navbar-component>
@@ -24,6 +28,7 @@
         components: {TemplateNavbarComponent, TemplateNavbarItemComponent},
         props: {
             navigations: { type: Array, default: () => ([]) },
+            navbarSlotNameRuleFunc: { type: Function },
         },
         methods: {
 

@@ -3,8 +3,22 @@
         <!-- navbar -->
         <navbar-component ref="navbar"
                           :navigations="navigations"
+                          :navbar-slot-name-rule-func="navbarSlotNameRule"
                           @navigate="onNavigate"
-                          @mounted="onNavbarMounted"></navbar-component>
+                          @mounted="onNavbarMounted">
+
+            <!-- расширяем cart с помощью badge
+                с информацией о количестве продуктов в заказе
+                нашей корзины -->
+            <template v-if="hasProductInCart"
+                      :slot="navbarSlotNameRule(cartIdx)"
+            >
+                <span class="position-absolute translate-middle badge rounded-pill bg-danger" style="top:18px;left:57px;">
+                    {{ cartProductCount }}<span class="visually-hidden">продуктов в заказе</span>
+                </span>
+            </template>
+
+        </navbar-component>
 
         <!-- single-page view -->
         <view-component :idx="currentIdx"
@@ -22,6 +36,8 @@
         components: { NavbarComponent, ViewComponent },
         data() {
             return {
+                // hack инициализации
+
                 // описание ссылок под single-page app
                 // следующего формата:
                 // -------------------------------------------
@@ -32,14 +48,55 @@
                 // - query(url-параметры),
                 // - children(список детей, как было показано чуть выше с route)
                 navigations: [
-                    { key:0, icon: null, title: 'Главная', route: 'index', params:{}, query: {}, children: [] },
-                    { key:1, icon: 'fa-solid fa-cart-shopping', title: null, route: 'cart', params:{}, query: {}, children: [] },
+                    { key:0, class: '', icon: null, title: 'Главная', route: 'index', params:{}, query: {}, children: [] },
+                    { key:1, class: 'position-relative', icon: 'fa-solid fa-cart-shopping', title: null, route: 'cart', params:{}, query: {}, children: [] },
                 ],
-                currentIdx: 0, // default="Главная"
-                marginTopOffset: 0,
+                currentIdx: 0,              // default="Главная"
+                cartProductCount: 0,        // количество продуктов в карзине
+                marginTopOffset: 0,         // отступ от navbar
             }
         },
+        computed: {
+            cartIdx() {
+                return _.findIndex(this.navigations, (o) => o.route === 'cart')
+            },
+            hasProductInCart() {
+                return this.cartProductCount > 0;
+            },
+        },
+        created() {
+            this.debounceSubmitCarProductCount = _.debounce(this.submitCarProductCount, 200);
+        },
         methods: {
+            navbarSlotNameRule(idx) {
+                return `navbar_slot_ext_${idx}`;
+            },
+
+            incrementProductInCart(count) {
+                this.cartProductCount += count;
+            },
+
+            /*
+             |---------------------------------------------------------------------------------------------
+             | XMLHttpRequests
+             |--------------------------------------------------------------------------------------
+             */
+
+            submitCarProductCount() {
+                return this.axios.get('/api/cart/count')
+                    .then(res => {
+                        this.incrementProductInCart(res.data);
+                    }).catch(error => {
+                        console.error(error);
+                    });
+            },
+
+            /*
+             |---------------------------------------------------------------------------------------------
+             | Events
+             |--------------------------------------------------------------------------------------
+             */
+
             onNavigate(idx) {
                 this.currentIdx = idx;
             },
@@ -47,6 +104,9 @@
                 // создаем отступ view от navbar(position: fixed)
                 this.marginTopOffset = this.$refs.navbar.$el.clientHeight;
             }
+        },
+        mounted() {
+            this.debounceSubmitCarProductCount();
         }
     }
 </script>
