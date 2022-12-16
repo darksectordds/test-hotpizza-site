@@ -12,4 +12,11 @@ class ProductController extends PiecemealListController
     protected $orderByColumn = 'id';
 
     protected $orderByDirection = 'asc';
+
+    protected function withRelationships()
+    {
+        return [
+            'photo'
+        ];
+    }
 }
