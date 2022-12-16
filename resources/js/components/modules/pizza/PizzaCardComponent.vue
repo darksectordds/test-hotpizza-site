@@ -25,7 +25,9 @@
                 return this.$models.$product.name(this.pizza);
             },
             image() {
-                return this.$models.$product.firstImage(this.pizza);
+                const photo = this.$models.$product.firstPhoto(this.pizza);
+
+                return this.$models.$productPhoto.url(photo);
             },
             description() {
                 return this.$models.$product.description(this.pizza);

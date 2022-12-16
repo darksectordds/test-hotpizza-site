@@ -22,8 +22,10 @@ Vue.prototype.$models = {};
 
 // Register own models & plugins
 import ProductModel from "./models/ProductModel";
+import ProductPhotoModel from "./models/ProductPhotoModel";
 import UtilsPlugin from "./utils";
 Vue.use(ProductModel);
+Vue.use(ProductPhotoModel);
 Vue.use(UtilsPlugin);
 
 // Register Vue Components

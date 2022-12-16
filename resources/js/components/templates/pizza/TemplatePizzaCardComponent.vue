@@ -3,7 +3,8 @@
         <div class="pizza-card__offset"></div>
         <div class="pizza-card__context">
             <div class="pizza-card__context__image-box">
-                <template-image-component :image="image"></template-image-component>
+                <template-image-component class="img"
+                                          :image="image"></template-image-component>
             </div>
             <div class="pizza-card__context__data-container">
                 <div class="title">{{ title }}</div>
