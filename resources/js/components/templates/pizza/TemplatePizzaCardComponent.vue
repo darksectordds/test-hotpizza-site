@@ -103,6 +103,7 @@
                 min-height: 150px;
                 background: linear-gradient(135deg, rgba(252,133,59,1) 0%, rgba(252,56,56,1) 100%);
                 border-radius: 14px;
+                border: 1px solid #f7c362;
 
                 .img {
                     display: block;
