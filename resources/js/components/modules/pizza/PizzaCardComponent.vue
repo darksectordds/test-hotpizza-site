@@ -52,7 +52,7 @@
              */
 
             submitCart(count) {
-                return this.axios.post(`/api/product/${this.uid}`, {
+                return this.axios.post(`/api/cart/${this.uid}`, {
                     count: count
                 }).then(res => {
                     // TODO: увеличить счетчик корзины
