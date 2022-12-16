@@ -1,5 +1,5 @@
 <template>
-    <list-pizza-card-component></list-pizza-card-component>
+    <list-pizza-card-component class="my-4"></list-pizza-card-component>
 </template>
 
 <script>
