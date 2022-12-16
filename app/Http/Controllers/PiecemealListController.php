@@ -172,7 +172,7 @@ class PiecemealListController extends Controller
         return $this->query($request)
             ->orderBy($this->orderByColumn, $this->orderByDirection)
             ->take(20)
-            ->latest();
+            ->latest($this->orderByColumn);
     }
 
     /**
