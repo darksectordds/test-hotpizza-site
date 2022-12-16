@@ -66,6 +66,7 @@
         },
         created() {
             this.debounceSubmitCarProductCount = _.debounce(this.submitCarProductCount, 200);
+            this.$root.$app = this;
         },
         methods: {
             navbarSlotNameRule(idx) {
@@ -85,7 +86,8 @@
             submitCarProductCount() {
                 return this.axios.get('/api/cart/count')
                     .then(res => {
-                        this.incrementProductInCart(res.data);
+                        const count = Number(res.data);
+                        this.incrementProductInCart(count);
                     }).catch(error => {
                         console.error(error);
                     });
