@@ -17,7 +17,7 @@
 
                     <form-button-component class="control__cart btn btn-success"
                                            :config="{value: 'в корзину'}"
-                                           @click.native="interfaceCount"></form-button-component>
+                                           @click.native="interfaceCart"></form-button-component>
                 </div>
             </div>
         </div>
@@ -65,8 +65,8 @@
              |--------------------------------------------------------------------------------------
              */
 
-            interfaceCount() {
-                this.$emit('count', this.count);
+            interfaceCart() {
+                this.$emit('cart', this.count);
             },
         },
     }

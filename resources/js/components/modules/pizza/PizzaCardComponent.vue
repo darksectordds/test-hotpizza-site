@@ -3,7 +3,8 @@
                                    :title="name"
                                    :image="image"
                                    :description="description"
-                                   :price="price"></template-pizza-card-component>
+                                   :price="price"
+                                   @cart="onCart"></template-pizza-card-component>
 </template>
 
 <script>
@@ -21,6 +22,9 @@
             hasPizza() {
                 return !!this.pizza;
             },
+            uid() {
+                return this.$models.$product.id(this.pizza);
+            },
             name() {
                 return this.$models.$product.name(this.pizza);
             },
@@ -36,5 +40,36 @@
                 return this.$models.$product.price(this.pizza);
             },
         },
+        created() {
+            this.debounceSubmitCart = _.debounce(this.submitCart, 200);
+        },
+        methods: {
+
+            /*
+             |---------------------------------------------------------------------------------------------
+             | XMLHttpRequests
+             |--------------------------------------------------------------------------------------
+             */
+
+            submitCart(count) {
+                return this.axios.post(`/api/product/${this.uid}`, {
+                    count: count
+                }).then(res => {
+                    // TODO: увеличить счетчик корзины
+                }).catch(error => {
+                    console.log(error);
+                });
+            },
+
+            /*
+             |---------------------------------------------------------------------------------------------
+             | Events
+             |--------------------------------------------------------------------------------------
+             */
+
+            onCart(count) {
+                this.debounceSubmitCart(count);
+            }
+        }
     }
 </script>
