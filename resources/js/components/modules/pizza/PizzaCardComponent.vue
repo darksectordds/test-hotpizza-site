@@ -56,6 +56,7 @@
                     count: count
                 }).then(res => {
                     // TODO: увеличить счетчик корзины
+                    console.log(res);
                 }).catch(error => {
                     console.log(error);
                 });
