@@ -23,6 +23,7 @@ Route::group(['prefix' => 'product', 'as' => 'product.'], function(){
 });
 
 Route::group(['prefix' => 'cart', 'as' => 'cart.'], function(){
+    Route::get('/count', 'App\Http\Controllers\Api\CartController@unPaymentCount')->name('unPaymentCount');
     Route::group(['prefix' => '{product_id}', 'as' => 'product_id.'], function(){
         Route::post('/', 'App\Http\Controllers\Api\CartProductController@create')->name('push');
     });

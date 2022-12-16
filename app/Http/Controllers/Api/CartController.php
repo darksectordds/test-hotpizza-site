@@ -55,4 +55,27 @@ class CartController extends ListController
 
         return response()->json($cart);
     }
+
+    public function unPaymentCount(Request $request)
+    {
+        /* SELECT m.id,m.is_payment,cp.count FROM `cart` as m
+            LEFT JOIN cart_product AS cp ON m.id = cp.cart_id
+            WHERE m.id = 3 AND m.is_payment = 0
+         */
+
+        $session_id = $this->getSessionIdFromRequestCookie($request);
+
+        $count = $this->model::select([
+                'cart.id as id',
+                'cart.is_payment as payment',
+            ])
+            ->leftJoin('cart_product', function($join) {
+                $join->on('cart.id', '=', 'cart_product.cart_id');
+            })
+            ->where('session_id', $session_id)
+            ->where('is_payment', 0)
+            ->sum('cart_product.count');
+
+        return response()->json($count);
+    }
 }
