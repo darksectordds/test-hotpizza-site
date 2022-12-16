@@ -10,7 +10,7 @@
                   :slot="$refs.list._slotBodyInner[idx]"
         >
             <pizza-card-component :pizza="item"
-                                  :key="this.$models.$product.id(item)"></pizza-card-component>
+                                  :key="$models.$product.id(item)"></pizza-card-component>
         </template>
     </template-infinity-list-component>
 </template>
@@ -111,7 +111,7 @@
         },
         methods: {
             sortByASC(a, b) {
-                return this.this.$models.$product.id(a) - this.this.$models.$product.id(b);
+                return this.$models.$product.id(a) - this.$models.$product.id(b);
             },
 
             /*

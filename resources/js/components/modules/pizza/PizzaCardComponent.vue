@@ -1,14 +1,19 @@
 <template>
     <template-pizza-card-component v-if="hasPizza"
-                                   :title="title"
+                                   :title="name"
                                    :image="image"
                                    :description="description"
                                    :price="price"></template-pizza-card-component>
 </template>
 
 <script>
+    import TemplatePizzaCardComponent from "../../templates/pizza/TemplatePizzaCardComponent";
+
     export default {
         name: 'PizzaCardComponent',
+        components: {
+            TemplatePizzaCardComponent
+        },
         props: {
             pizza: {type: Object, default: () => ({})},
         },
@@ -16,8 +21,8 @@
             hasPizza() {
                 return !!this.pizza;
             },
-            title() {
-                return this.$models.$product.title(this.pizza);
+            name() {
+                return this.$models.$product.name(this.pizza);
             },
             image() {
                 return this.$models.$product.firstImage(this.pizza);

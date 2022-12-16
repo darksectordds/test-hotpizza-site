@@ -15,7 +15,7 @@ ProductObject.description = function(product) {
     return product.description;
 };
 ProductObject.price = function(product) {
-    return product.price;
+    return Number(product.price);
 };
 
 /*----------------------------------------------------
