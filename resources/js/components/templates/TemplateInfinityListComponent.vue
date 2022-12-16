@@ -3,8 +3,11 @@
         <slot name="header"></slot>
 
         <template v-if="!isEndAbove">
-            <template-loading-spinner-component
-                    v-if="isLoadingAbove"></template-loading-spinner-component>
+            <div class="w-100 text-center"
+                 v-if="isLoadingAbove"
+            >
+                <template-loading-spinner-component/>
+            </div>
 
             <form-button-component v-else-if="hasAboveButtonConfig"
                                    :config="cAboveButtonConfig"
@@ -34,8 +37,11 @@
                 v-else-if="!hasList && !isEndAbove && !isEndBelow && !isLoadingAbove && !isLoadingBelow"></template-list-empty-component>
 
         <template v-if="!isEndBelow">
-            <template-loading-spinner-component
-                    v-if="isLoadingBelow"></template-loading-spinner-component>
+            <div class="w-100 text-center"
+                 v-if="isLoadingBelow"
+            >
+                <template-loading-spinner-component/>
+            </div>
 
             <form-button-component v-else-if="hasBelowButtonConfig"
                                    :config="cBelowButtonConfig"
