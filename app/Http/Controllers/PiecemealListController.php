@@ -129,7 +129,7 @@ class PiecemealListController extends Controller
     public function query(Request $request, $nested_relationships = [])
     {
         if (count($nested_relationships) === 0) {
-            $nested_relationships = self::withRelationships();
+            $nested_relationships = $this->withRelationships();
         }
 
         return $this->model::with($nested_relationships);
