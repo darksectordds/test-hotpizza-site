@@ -44,7 +44,7 @@
         },
         data() {
             return {
-                count: 0,
+                count: 1,
             }
         },
         methods: {
