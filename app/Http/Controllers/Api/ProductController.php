@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Product;
-use App\Http\Controllers\PiecemealListController;
+use App\Http\Controllers\ListController;
 
-class ProductController extends PiecemealListController
+class ProductController extends ListController
 {
     protected $model = Product::class;
 

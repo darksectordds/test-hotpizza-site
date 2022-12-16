@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
-class PiecemealListController extends Controller
+class ListController extends Controller
 {
     /**
      * @var Model $model
