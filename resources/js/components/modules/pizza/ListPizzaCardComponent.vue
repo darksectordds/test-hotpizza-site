@@ -9,7 +9,8 @@
         <template v-for="(item,idx) in listSorted"
                   :slot="$refs.list._slotBodyInner[idx]"
         >
-            <pizza-card-component :pizza="item"
+            <pizza-card-component class="mb-1"
+                                  :pizza="item"
                                   :key="$models.$product.id(item)"></pizza-card-component>
         </template>
     </template-infinity-list-component>
