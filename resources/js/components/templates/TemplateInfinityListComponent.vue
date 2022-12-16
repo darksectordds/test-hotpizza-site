@@ -257,7 +257,7 @@
                                 error.response.data.hasOwnProperty('message')
                             ) {
                                 this.$set(this.$data, colLoading, false);
-                                return this.$awn.alert(error.response.data.message);
+                                console.error(error);
                             }
                         });
                 }
