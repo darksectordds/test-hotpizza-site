@@ -15,8 +15,6 @@ class FixProductPhotoExtFromJPGtoPNGSeeder extends Seeder
     public function run()
     {
         // UPDATE `product_photo` SET `url`=REPLACE(`url`, '.jpg', '.png');
-        DB::table('product_photo')->update([
-            'url' => "REPLACE(`url`, '.jpg', '.png')"
-        ]);
+        DB::statement(" UPDATE `product_photo` SET `url`=REPLACE(`url`, '.jpg', '.png')");
     }
 }
