@@ -23,8 +23,15 @@ Route::group(['prefix' => 'product', 'as' => 'product.'], function(){
 });
 
 Route::group(['prefix' => 'cart', 'as' => 'cart.'], function(){
+    // список продуктов текущей корзины
+    Route::get('/', 'App\Http\Controllers\Api\Cart@index');
+
+    // количество неуплаченных продуктов текущей корзины
     Route::get('/count', 'App\Http\Controllers\Api\CartController@unPaymentCount')->name('unPaymentCount');
+
+
     Route::group(['prefix' => '{product_id}', 'as' => 'product_id.'], function(){
+        // добавление продукта в корзину
         Route::post('/', 'App\Http\Controllers\Api\CartProductController@create')->name('push');
     });
 });
