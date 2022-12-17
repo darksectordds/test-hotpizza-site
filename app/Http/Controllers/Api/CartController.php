@@ -12,7 +12,7 @@ class CartController extends ListController
 {
     protected $model = Cart::class;
 
-    protected $orderByColumn = 'id';
+    protected $orderByColumn = 'cart_product.created_at';
 
     /**
      * Возвращает query builder'а модели
