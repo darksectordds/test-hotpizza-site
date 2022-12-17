@@ -223,7 +223,7 @@
                         .catch((error) => {
                             this.isLoading = false;
                             this.isError = true;
-                            return this.$awn.alert(error.response.data.message);
+                            console.log(error);
                         });
                 }
             },
