@@ -6,12 +6,79 @@ use App\Http\Controllers\ListController;
 use App\Models\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\DB;
 
 class CartController extends ListController
 {
     protected $model = Cart::class;
 
     protected $orderByColumn = 'id';
+
+    /**
+     * Возвращает query builder'а модели
+     *
+     * @param Request $request
+     * @param $nested_relationships
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    protected function query(Request $request, $nested_relationships = [])
+    {
+        if (count($nested_relationships) === 0) {
+            $nested_relationships = $this->withRelationships();
+        }
+
+        $session_id = $this->getSessionIdFromRequestCookie($request);
+
+        /*
+        SELECT
+            `cart`.`id` AS `cart`,
+            `product`.`name` AS `name`,
+            `product`.`price` AS `price`,
+            SUM(cart_product.count) AS COUNT,
+            `cart_product`.`product_id` AS `id`,
+            `cart_product`.`created_at` AS `date`
+        FROM `cart`
+        LEFT JOIN
+            ( `cart_product`
+                LEFT JOIN `product` ON `cart_product`.`product_id` = `product`.`id`
+            )
+            ON `cart`.`id` = `cart_product`.`cart_id`
+        WHERE `session_id` = '0JD2dOitzAajcZoGNaZs2wXyh3Muf565P5XF78Zg'
+        AND  `is_payment` = 0
+        GROUP BY `cart_product`.`product_id`
+        LIMIT 20
+        OFFSET 0;
+         */
+
+        // WARNING:
+        // чтобы использовать такого рода запрос нужно либо отключить ONLY_FULL_GROUP_BY в SQL,
+        // либо обернуть все выбранные столбцы агрегатными функциями MIN | MAX() | AVG(),
+        // но тогда провадет целесообразность в столбце `created_at`, которая может быть
+        // не так важна самому пользователю, НО важна для внутреннего потребления сотрудниками
+        // для определения времени заказа!!!
+        // Поэтому, чтобы не было проблем, которые возникнуть при определения ВСЕГО rows
+        // при таком query-запросе, особенно при SUM-группировке по `cart_product.count`,
+        // то решено сделать тупо в лоб без группировки.
+
+        $q = $this->model::select([
+                'cart_product.product_id as id',
+                'cart.id as cart',
+                'product.name as name',
+                'product.price as price',
+                'cart_product.count as count',
+                'cart_product.created_at as date'
+            ])
+            ->leftJoin('cart_product', function($join) {
+                $join->on('cart.id', '=', 'cart_product.cart_id');
+                $join->leftJoin('product', function ($join) {
+                    $join->on('cart_product.product_id', '=', 'product.id');
+                });
+            })
+            ->where('session_id', $session_id)
+            ->where('is_payment', 0);
+
+        return $q;
+    }
 
     /**
      * Получение ID-сессии из cookie-запроса,
@@ -36,6 +103,12 @@ class CartController extends ListController
 
         return substr($hash, strpos($hash, '|') + 1);
     }
+
+    /*
+     |-------------------------------------------------------------------------------------
+     | Routes
+     |------------------------------------------------------------------------------
+     */
 
     /**
      * Создание новой корзины или возврат сущ.
