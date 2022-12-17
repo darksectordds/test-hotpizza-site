@@ -9,6 +9,11 @@ const routes = [
         name: 'index',
         component: () => import('./components/pages/PageIndexComponent'),
     },
+    {
+        path: '/cart',
+        name: 'cart',
+        component: () => import('./components/pages/PageCartProductComponent'),
+    },
 ];
 
 const router = new VueRouter({
