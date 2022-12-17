@@ -79,12 +79,16 @@ class ListController extends Controller
      */
     protected $responseKeyCollection = null;
 
+    protected $responseGetCollection = true;
+
     /**
      * Ключ response количества row с таким условием (без limit).
      *
      * @var string
      */
     protected $responseKeyCount = null;
+
+    protected $responseGetCount = true;
 
     /**
      * PiecemealListController constructor.
@@ -126,7 +130,7 @@ class ListController extends Controller
      * @param $nested_relationships
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(Request $request, $nested_relationships = [])
+    protected function query(Request $request, $nested_relationships = [])
     {
         if (count($nested_relationships) === 0) {
             $nested_relationships = $this->withRelationships();
@@ -332,11 +336,15 @@ class ListController extends Controller
         // общая валидация
         $this->validation($request);
 
+        $res = [];
+
         // получение коллекции модели
-        $res[$this->responseKeyCollection] = $this->collection($request);
+        if ($this->responseGetCollection)
+            $res[$this->responseKeyCollection] = $this->collection($request);
 
         // получение количества модели(без limit)
-        $res[$this->responseKeyCount] = $this->count($request);
+        if ($this->responseGetCount)
+            $res[$this->responseKeyCount] = $this->count($request);
 
         return response()->json($res);
     }
