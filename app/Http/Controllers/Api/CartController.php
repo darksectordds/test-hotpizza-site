@@ -61,8 +61,6 @@ class CartController extends ListController
         // то решено сделать тупо в лоб без группировки.
 
         $q = $this->model::select([
-                'cart_product.product_id as id',
-                'cart.id as cart',
                 'product.name as name',
                 'product.price as price',
                 'cart_product.count as count',
