@@ -10,9 +10,14 @@ const routes = [
         component: () => import('./components/pages/PageIndexComponent'),
     },
     {
-        path: '/cart',
+        path: 'cart',
         name: 'cart',
-        component: () => import('./components/pages/PageCartProductComponent'),
+        component: () => import('./components/pages/cart/PageCartProductComponent'),
+    },
+    {
+        path: 'cart/submit',
+        name: 'cart-submit',
+        component: () => import('./components/pages/cart/PageCartFormSubmitComponent'),
     },
 ];
 

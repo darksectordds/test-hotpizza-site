@@ -1,18 +1,18 @@
 $class-prefix:                                        'pizza__'; // префикс `own style`
 
-
 $name-form-control:                                   $class-prefix + 'form-control';
-
 
 $name-pagination:                                     $class-prefix + 'pagination';
 $name-pagination__page:                               $name-pagination + '__page';
 $name-pagination__form:                               $name-pagination + '__form';
 $name-pagination__form__btn:                          $name-pagination__form + '__btn';
 
-
 $name-navbar:                                         $class-prefix + 'navbar';
 $name-navbar__navitem:                                $name-navbar + '__nav-item';
 
+$name-article:                                        $class-prefix + 'article';
+
+$name-cart-product:                                   $class-prefix + 'cart-product';
 
 $window-sm:                                           576px;
 $window-md:                                           768px;

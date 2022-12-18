@@ -6,25 +6,38 @@
                                       @listAbove="onList"
                                       @listBelow="onList"
     >
+        <!-- redirect to header inside -->
+        <template v-slot:header>
+            <slot name="header"></slot>
+        </template>
+
         <template v-for="(item,idx) in listSorted"
                   :slot="$refs.list._slotBodyInner[idx]"
         >
-            <cart-product-component class="mb-1"
-                                  :pizza="item"
-                                  :key="$models.$product.id(item)"></cart-product-component>
+
+            <template-cart-product-item-component>{{ $models.$cart.name(item) }}</template-cart-product-item-component>
+            <template-cart-product-item-component>{{ $models.$cart.count(item) }}</template-cart-product-item-component>
+            <template-cart-product-item-component>{{ $models.$cart.price(item) }} руб</template-cart-product-item-component>
+            <template-cart-product-item-component>{{ $models.$cart.count(item) * $models.$cart.price(item) }} руб</template-cart-product-item-component>
+            <template-cart-product-item-component>
+                <template-moment-date-component :date="$models.$cart.date(item)"></template-moment-date-component>
+            </template-cart-product-item-component>
+
         </template>
     </template-infinity-list-component>
 </template>
 
 <script>
     import TemplateInfinityListComponent from "../../templates/TemplateInfinityListComponent";
-    import CartProductComponent from "./CartProductComponent";
+    import TemplateCartProductItemComponent from "../../templates/TemplateCartProductItemComponent";
+    import TemplateMomentDateComponent from "../../templates/TemplateMomentDateComponent";
 
     export default {
         name: 'CartProductListComponent',
         components: {
+            TemplateMomentDateComponent,
             TemplateInfinityListComponent,
-            CartProductComponent,
+            TemplateCartProductItemComponent,
         },
         props: {
             config: {type: Object, default: () => ({})},
@@ -73,7 +86,7 @@
                     list: this.list,
                     limit: this._config.limit,
                     type: this.type,
-                    fetch_list_column: 'cart_product',
+                    fetch_list_column: 'cart',
                     BIT_FETCH_ON_MOUNTED: true,
                 };
             },
