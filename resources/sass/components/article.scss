@@ -1,0 +1,21 @@
+@import "../config";
+
+.#{$name-article} {
+  padding: 22px 40px;
+  border-radius: 17px;
+  background-color: white;
+  color: #1b1e21;
+  box-shadow: 6px 8px 9px -5px rgba(0,0,0,0.35);
+
+  &__header {
+
+  }
+
+  &__body {
+
+  }
+
+  &__footer {
+
+  }
+}
