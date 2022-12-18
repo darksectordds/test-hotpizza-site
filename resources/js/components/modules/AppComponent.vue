@@ -23,7 +23,8 @@
         <!-- single-page view -->
         <view-component :idx="currentIdx"
                         :navigations="navigations"
-                        :style="[{'margin-top': `${marginTopOffset}px`}]"></view-component>
+                        :style="[{'margin-top': `${marginTopOffset}px`}]"
+                        @idx="onNavigate"></view-component>
     </component>
 </template>
 
@@ -74,7 +75,7 @@
             },
 
             incrementProductInCart(count) {
-                this.cartProductCount += count;
+                this.cartProductCount += Number(count);
             },
 
             /*
@@ -100,7 +101,9 @@
              */
 
             onNavigate(idx) {
-                this.currentIdx = idx;
+                if (this.currentIdx !== idx) {
+                    this.currentIdx = idx;
+                }
             },
             onNavbarMounted() {
                 // создаем отступ view от navbar(position: fixed)
