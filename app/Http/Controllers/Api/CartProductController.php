@@ -40,4 +40,28 @@ class CartProductController extends ListController
 
         return response()->json($cart_product);
     }
+
+    /**
+     * Удаление товара из корзины.
+     *
+     * @param Request $request
+     * @param $product_id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function destroy(Request $request, $product_id)
+    {
+        $session_id = app(CartController::class)->getSessionIdFromRequestCookie($request);
+
+        // запрос должен в себе содержать проерку сессии
+        $cart_product = CartProduct::whereHas('cart', function ($query) use($session_id){
+                $query->where('session_id', $session_id)
+                    ->where('is_payment', 0);
+            })
+            ->where('product_id', $product_id)
+            ->first();
+
+        $count = $cart_product->delete();
+
+        return response()->json($cart_product, ($count > 0) ? 200 : 400);
+    }
 }

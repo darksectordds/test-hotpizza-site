@@ -33,6 +33,8 @@ Route::group(['prefix' => 'cart', 'as' => 'cart.'], function(){
     Route::group(['prefix' => '{product_id}', 'as' => 'product_id.'], function(){
         // добавление продукта в корзину
         Route::post('/', 'App\Http\Controllers\Api\CartProductController@create')->name('push');
+        // удаление продукта из корзины
+        Route::delete('/', 'App\Http\Controllers\Api\CartProductController@destroy')->name('remove');
     });
 });
 

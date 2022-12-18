@@ -19,4 +19,15 @@ class CartProduct extends Model
     ];
 
     public $timestamps = false;
+
+    /*
+     |---------------------------------------------------------------------------------------------
+     | Relationships
+     |--------------------------------------------------------------------------------------
+     */
+
+    public function cart()
+    {
+        return $this->belongsTo(Cart::class);
+    }
 }
