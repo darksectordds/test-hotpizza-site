@@ -15,6 +15,10 @@ import { faCartShopping } from '@fortawesome/free-solid-svg-icons'; //add some f
 library.add(faCartShopping); //add icons to the library
 Vue.component('font-awesome-icon', FontAwesomeIcon); // add font awesome icon component
 
+// SweetAlert
+import VueSweetalert2 from 'vue-sweetalert2';
+Vue.use(VueSweetalert2, {heightAuto: false});
+
 Vue.config.productionTip = false;
 
 // Init own global variable
