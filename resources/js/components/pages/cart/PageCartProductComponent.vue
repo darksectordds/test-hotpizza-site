@@ -14,12 +14,11 @@
         </cart-product-list-component>
 
         <!-- оплатить -->
-        <div class="form-group text-end">
-            <span class="fs-4 fw-bold me-5"
-                  v-if="isMounted"
-            >{{ priceTotal }} руб.</span>
+        <div class="form-group text-end" v-if="isMounted">
+            <span class="fs-4 fw-bold me-5">{{ priceTotal }} руб.</span>
 
             <form-button-component class="btn btn-success w-25"
+                                   :disabled="priceTotal <= 0"
                                    @click.native="onRoute">Оплатить</form-button-component>
         </div>
     </template-article-component>
