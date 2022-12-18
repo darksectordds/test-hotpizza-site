@@ -19,4 +19,6 @@ class Customers extends Model
         'paid',
         'comment',
     ];
+
+    public $timestamps = false;
 }

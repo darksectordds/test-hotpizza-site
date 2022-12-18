@@ -35,3 +35,7 @@ Route::group(['prefix' => 'cart', 'as' => 'cart.'], function(){
         Route::post('/', 'App\Http\Controllers\Api\CartProductController@create')->name('push');
     });
 });
+
+Route::group(['prefix' => 'customer', 'as' => 'customer.'], function(){
+    Route::post('/', 'App\Http\Controllers\Api\CustomerController@create')->name('push');
+});

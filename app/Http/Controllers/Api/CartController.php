@@ -78,6 +78,7 @@ class CartController extends ListController
         return $q;
     }
 
+    // TODO: перенеси меня!!!
     /**
      * Получение ID-сессии из cookie-запроса,
      * который сохраняется в зависимости от конфига
@@ -86,7 +87,7 @@ class CartController extends ListController
      * @param Request $request
      * @return string
      */
-    private function getSessionIdFromRequestCookie(Request $request)
+    public function getSessionIdFromRequestCookie(Request $request)
     {
         // WARNING: не использовать session()->getId(),
         // потому что эта функция генерирует новую сессию
