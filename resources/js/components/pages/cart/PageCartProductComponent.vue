@@ -3,13 +3,14 @@
 
         <!-- список неоплаченных продуктов в корзине -->
         <cart-product-list-component ref="list"
-                                     class="pizza__cart-product mb-4">
+                                     class="pizza__cart-product mb-5">
             <template v-slot:header>
                 <template-cart-product-item-component>Название</template-cart-product-item-component>
                 <template-cart-product-item-component>Количество</template-cart-product-item-component>
                 <template-cart-product-item-component>Цена</template-cart-product-item-component>
                 <template-cart-product-item-component>Результирующая цена</template-cart-product-item-component>
                 <template-cart-product-item-component>Дата</template-cart-product-item-component>
+                <template-cart-product-item-component>Отказ</template-cart-product-item-component>
             </template>
         </cart-product-list-component>
 

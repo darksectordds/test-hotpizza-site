@@ -11,8 +11,8 @@ Vue.use(VueAxios, axios);
 // FontAwesome
 import { library } from '@fortawesome/fontawesome-svg-core'; // import the fontawesome core
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'; //import font awesome icon component
-import { faCartShopping } from '@fortawesome/free-solid-svg-icons'; //add some free styles
-library.add(faCartShopping); //add icons to the library
+import { faCartShopping, faSquareXmark } from '@fortawesome/free-solid-svg-icons'; //add some free styles
+library.add(faCartShopping, faSquareXmark); //add icons to the library
 Vue.component('font-awesome-icon', FontAwesomeIcon); // add font awesome icon component
 
 // SweetAlert

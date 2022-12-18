@@ -1,7 +1,7 @@
 @import "../config";
 
 $border-color: #c3c3c3;
-$columns: 5;
+$columns: 6;
 
 .#{$name-cart-product} {
   display: grid;
@@ -9,10 +9,10 @@ $columns: 5;
 
   &__item {
     // первые 5 столбцов (заголовки)
-    &:nth-child(-n + 5) { // ?
+    &:nth-child(-n + 6) { // ?
       font-weight: bold;
     }
-    &:nth-child(5n + 4) { // ?
+    &:nth-child(6n + 4) { // ?
       font-weight: bold;
     }
 
@@ -20,11 +20,11 @@ $columns: 5;
 
     border-top: 1px solid $border-color;
     border-left: 1px solid $border-color;
-    &:nth-child(-n + 5) {
+    &:nth-child(-n + 6) {
       border-top: 1px solid $border-color;
     }
     &:first-child,
-    &:nth-child(5n + 1){
+    &:nth-child(6n + 1){
       border-left: none;
     }
   }

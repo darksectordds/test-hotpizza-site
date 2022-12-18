@@ -23,6 +23,13 @@
                 <template-moment-date-component :date="$models.$cart.date(item)"></template-moment-date-component>
             </template-cart-product-item-component>
 
+            <template-cart-product-item-component class="d-flex justify-content-center align-items-center">
+                <form-button-component class="btn btn-danger"
+                                       @click.native="debounceSubmitProductRemove($models.$cart.productId(item))">
+                    <font-awesome-icon icon="fa-solid fa-square-xmark" />
+                </form-button-component>
+            </template-cart-product-item-component>
+
         </template>
     </template-infinity-list-component>
 </template>
@@ -31,10 +38,12 @@
     import TemplateInfinityListComponent from "../../templates/TemplateInfinityListComponent";
     import TemplateCartProductItemComponent from "../../templates/TemplateCartProductItemComponent";
     import TemplateMomentDateComponent from "../../templates/TemplateMomentDateComponent";
+    import FormButtonComponent from "../../forms/FormButtonComponent";
 
     export default {
         name: 'CartProductListComponent',
         components: {
+            FormButtonComponent,
             TemplateMomentDateComponent,
             TemplateInfinityListComponent,
             TemplateCartProductItemComponent,
@@ -123,9 +132,40 @@
                 return (this.hasList) ? 'uid=' + this.$models.$product.id(this.list[this.list.length - 1]) : '';
             },
         },
+        created() {
+            this.debounceSubmitProductRemove = _.debounce(this.submitProductRemove, 200);
+        },
         methods: {
             sortByASC(a, b) {
                 return this.$models.$product.id(a) - this.$models.$product.id(b);
+            },
+
+            listRemoveByIdx(idx) {
+                this.list.splice(idx, 1);
+            },
+
+            /*
+             |---------------------------------------------------------------------------------------------
+             | XMLHttpRequests
+             |--------------------------------------------------------------------------------------
+             */
+
+            submitProductRemove(product_id) {
+                return this.axios.delete(`/api/cart/${product_id}`)
+                .then(res => {
+                    // убираем из badge то количество, что было удалено
+                    this.$root.$app.navbarCartBadgeCounterInc(-Number(res.data.count));
+
+                    // удаляем из списков
+                    const idx = _.findIndex(this.list, (o) => {
+                        return this.$models.$cart.productId(o) === product_id;
+                    });
+                    if (idx !== -1) {
+                        this.listRemoveByIdx(idx);
+                    }
+                }).catch(error => {
+                    console.log(error);
+                });
             },
 
             /*

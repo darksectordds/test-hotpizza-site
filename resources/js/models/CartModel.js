@@ -5,8 +5,8 @@ const CartProduct = {};
  |--------------------------------------------
  */
 
-CartProduct.id = function(cart) {
-    return cart.id;
+CartProduct.productId = function(cart) {
+    return cart.product_id;
 };
 CartProduct.name = function(cart) {
     return cart.name;
