@@ -55,7 +55,7 @@
                 return this.axios.post(`/api/cart/${this.uid}`, {
                     count: count
                 }).then(res => {
-                    this.$root.$app.incrementProductInCart(count);
+                    this.$root.$app.navbarCartBadgeCounterInc(count);
                 }).catch(error => {
                     console.log(error);
                 });

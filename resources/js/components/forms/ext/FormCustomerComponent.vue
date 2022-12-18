@@ -26,6 +26,7 @@
 
         <div class="form-group mb-2">
             <form-input-component class="form-control"
+                                  type="number"
                                   placeholder="К оплате(оценка сдачи)"
                                   @value="onPaid"/>
         </div>
@@ -71,6 +72,10 @@
         },
         methods: {
 
+            redirectToPageIndex: function () {
+                window.location.replace(window.location.origin);
+            },
+
             /*
              |---------------------------------------------------------------------------------------------
              | XMLHttpRequests
@@ -84,20 +89,34 @@
                 this.isLoading = true;
 
                 return this.axios.post(`/api/customer`, {
-                        name: this.name,
-                        phone: this.phone,
-                        email: this.email,
-                        address: this.address,
-                        paid: this.paid,
-                        comment: this.comment,
-                    }).then(res => {
-                        // TODO: вывод об успешном принятии заказа
-                        console.log(res);
-                        this.isLoading = false;
-                    }).catch(error => {
-                        console.log(error);
-                        this.isLoading = false;
+                    name: this.name,
+                    phone: this.phone,
+                    email: this.email,
+                    address: this.address,
+                    paid: this.paid,
+                    comment: this.comment,
+                }).then(res => {
+                    this.isLoading = false;
+
+                    // TODO: вывод об успешном принятии заказа
+                    console.log(res);
+
+                    // 1. не забываем обнулить количество товаров в карзине
+                    this.$root.$app.navbarCartBadgeCounterReset();
+                    // 2. открываем модал об успешном принятии заказа
+                    this.$swal.fire({
+                        title: 'Ваш заказ принят!',
+                        text: 'Заказ принят и находится в очереди на обслуживание. Ждите.',
+                        type: 'success',
+                    }).then((result) => {
+                        if (result.value) {
+                            this.redirectToPageIndex();
+                        }
                     });
+                }).catch(error => {
+                    console.log(error);
+                    this.isLoading = false;
+                });
             },
 
             /*

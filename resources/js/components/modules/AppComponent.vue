@@ -74,8 +74,11 @@
                 return `navbar_slot_ext_${idx}`;
             },
 
-            incrementProductInCart(count) {
+            navbarCartBadgeCounterInc(count) {
                 this.cartProductCount += Number(count);
+            },
+            navbarCartBadgeCounterReset() {
+                this.cartProductCount = 0;
             },
 
             /*
@@ -88,7 +91,7 @@
                 return this.axios.get('/api/cart/count')
                     .then(res => {
                         const count = Number(res.data);
-                        this.incrementProductInCart(count);
+                        this.navbarCartBadgeCounterInc(count);
                     }).catch(error => {
                         console.error(error);
                     });
