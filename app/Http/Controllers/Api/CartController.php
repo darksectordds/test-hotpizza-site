@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\ListController;
 use App\Models\Cart;
+use App\Models\CartProduct;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
@@ -61,12 +62,13 @@ class CartController extends ListController
         // то решено сделать тупо в лоб без группировки.
 
         $q = $this->model::select([
+                'product.id as product_id',
                 'product.name as name',
                 'product.price as price',
                 'cart_product.count as count',
                 'cart_product.created_at as date'
             ])
-            ->leftJoin('cart_product', function($join) {
+            ->rightJoin('cart_product', function($join) {
                 $join->on('cart.id', '=', 'cart_product.cart_id');
                 $join->leftJoin('product', function ($join) {
                     $join->on('cart_product.product_id', '=', 'product.id');
@@ -128,6 +130,12 @@ class CartController extends ListController
         return response()->json($cart);
     }
 
+    /**
+     * Получение количества не оплаченных товаров в корзине.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function unPaymentCount(Request $request)
     {
         /* SELECT m.id,m.is_payment,cp.count FROM `cart` as m
